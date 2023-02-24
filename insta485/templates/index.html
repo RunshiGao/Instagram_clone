@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <!-- {% for post in posts %}
+        <div class="post">
+            <img src="/uploads/{{ post.avatar }}" class="avatar" alt="ava1">
+            <a href="/users/{{ post.owner }}/" class="name"><br>{{ post.owner }}</a>
+            <a href="/posts/{{ post.postid }}/" class="timestamp">{{ post.created }}</a>
+            <img src="/uploads/{{ post.filename }}" class="pic" alt="p">
+            {% if post.like != 1 %}
+                <p class="like">{{ post.like }} likes</p>
+            {% else %}
+                <p class="like">{{ post.like }} like</p>
+            {% endif %}
+
+            <div class="like">
+                {% if post.liked %}
+                    <form action="/likes/?target={{ url_for("show_index") }}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="operation" value="unlike"/>
+                        <input type="hidden" name="postid" value="{{ post.postid }}"/>
+                        <input type="submit" name="unlike" value="unlike"/>
+                    </form>
+                {% else %}
+                    <form action="/likes/?target={{ url_for("show_index") }}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="operation" value="like"/>
+                        <input type="hidden" name="postid" value="{{ post.postid }}"/>
+                        <input type="submit" name="like" value="like"/>
+                    </form>
+                {% endif %}
+            </div>
+
+            {% for comment in post.comments %}
+                <a href="/users/{{ comment.owner }}/" class="name">{{ comment.owner }}</a> {{ comment.text }}
+                <br><br>
+            {% endfor %}
+            <form action="/comments/?target={{ url_for("show_index") }}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="operation" value="create"/>
+                <input type="hidden" name="postid" value="{{ post.postid }}"/>
+                <input type="text" name="text" required/>
+                <input type="submit" name="comment" value="comment"/>
+            </form>
+        </div>
+        <br><br>
+    {% endfor %} 
+    -->
+    <div id="reactEntry">
+        Loading ...
+      </div>
+      <!-- Load JavaScript -->
+      <script type="text/javascript" src="{{ url_for('static', filename='js/bundle.js') }}"></script>
+    </body>
+{% endblock %}

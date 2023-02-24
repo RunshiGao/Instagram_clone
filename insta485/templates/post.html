@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <div class="posts">
+        <div style="height: 100px">
+            <img src="/uploads/{{ post.filename }}" alt="pic1" style="float: left">
+            <img src="/uploads/{{ owner.filename }}" class="avatar" alt="ava1">
+            <a href="/users/{{ owner.username }}/" class="name"><br>{{ owner.username }}</a>
+            <a href="/posts/{{ post.postid }}/" class="timestamp">{{ post.created }}</a>
+        </div>
+        <br><br>
+        {% if post.likes != 1 %}
+            <p class="like"> {{ post.likes }} likes</p>
+        {% else %}
+            <p class="like"> {{ post.likes }} like</p>
+        {% endif %}
+        {% for comment in post.comments %}
+            <a href="/users/{{ comment.owner }}/" class="name">{{ comment.owner }}</a> {{ comment.text }}
+            {% if comment.owner == logname %}
+                <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+                <form action="/comments/?target={{ url_for("show_post", postid_url_slug = post.postid) }}" method="post"
+                      enctype="multipart/form-data">
+                    <input type="hidden" name="operation" value="delete"/>
+                    <input type="hidden" name="commentid" value="{{ comment.commentid }}"/>
+                    <input type="submit" name="uncomment" value="delete"/>
+                </form>
+            {% endif %}
+            <br><br>
+        {% endfor %}
+        <div class="like">
+            {% if post.liked %}
+                <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+                <form action="/likes/?target={{ url_for("show_post", postid_url_slug = post.postid) }}" method="post"
+                      enctype="multipart/form-data">
+                    <input type="hidden" name="operation" value="unlike"/>
+                    <input type="hidden" name="postid" value="{{ post.postid }}"/>
+                    <input type="submit" name="unlike" value="unlike"/>
+                </form>
+            {% else %}
+                <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+                <form action="/likes/?target={{ url_for("show_post", postid_url_slug = post.postid) }}" method="post"
+                      enctype="multipart/form-data">
+                    <input type="hidden" name="operation" value="like"/>
+                    <input type="hidden" name="postid" value="{{ post.postid }}"/>
+                    <input type="submit" name="like" value="like"/>
+                </form>
+            {% endif %}
+
+            <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+            <form action="/comments/?target={{ url_for("show_post", postid_url_slug = post.postid) }}" method="post"
+                  enctype="multipart/form-data">
+                <input type="hidden" name="operation" value="create"/>
+                <input type="hidden" name="postid" value="{{ post.postid }}"/>
+                <input type="text" name="text" required/>
+                <input type="submit" name="comment" value="comment"/>
+            </form>
+            {% if owner.username == logname %}
+                <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+                <form action="/posts/?target={{ url_for("show_user", user_url_slug = logname) }}" method="post"
+                      enctype="multipart/form-data">
+                    <input type="hidden" name="operation" value="delete"/>
+                    <input type="hidden" name="postid" value="{{ post.postid }}"/>
+                    <input type="submit" name="delete" value="delete this post"/>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,75 @@
+#top {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#topleft {
+    float: left;
+}
+
+#topright {
+    float: right;
+}
+
+.post {
+    border-style: solid;
+    border-color: gray;
+    margin: auto 10%;
+}
+
+.follow {
+    height: 100px;
+    margin: auto 10%;
+    border-style: solid;
+    border-color: gray;
+}
+
+.timestamp {
+    margin: 2%;
+    float: right;
+    color: gray;
+    font-weight: bold;
+}
+
+.name {
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+.pic {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.like {
+    padding-left: 10px;
+}
+
+.avatar {
+    float: left;
+    margin: 1%;
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.posts {
+    text-align: left;
+    margin: auto 10%;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.title2 {
+    margin: auto 10%;
+    font-size: 30px;
+    font-weight: bold;
+}

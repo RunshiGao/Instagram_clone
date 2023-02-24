@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block body %}
+    <p class="title2">Following<br><br></p>
+    {% for follow in following %}
+        <div class="follow">
+            <img src="{{ follow.user_img_url }}" class="avatar" alt="ava1">
+            <a href="/users/{{ follow.username }}/" class="name"><br>{{ follow.username }}</a>
+            {% if logname == follow.username %}
+            <p></p>
+            {% elif follow.logname_follows_username %}
+                <p class="timestamp">following</p>
+                <form action="/following/?target={{ url_for("get_following", user_url_slug=username) }}" method="post"
+                    enctype="multipart/form-data">
+                    <input type="submit" name="unfollow" value="unfollow"/>
+                    <input type="hidden" name="username" value="{{ follow.username }}"/>
+                    <input type="hidden" name="operation" value="unfollow"/>
+                </form>
+            {% else %}
+                <p class="timestamp">not following</p>
+                <form action="/following/?target={{ url_for("get_following", user_url_slug=username) }}" method="post"
+                    enctype="multipart/form-data">
+                    <input type="submit" name="follow" value="follow"/>
+                    <input type="hidden" name="username" value="{{ follow.username }}"/>
+                    <input type="hidden" name="operation" value="follow"/>
+                </form>
+            {% endif %}
+        </div>
+        <br><br>
+    {% endfor %}
+{% endblock %}

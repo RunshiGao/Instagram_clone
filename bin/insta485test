@@ -1,0 +1,13 @@
+#!/bin/bash
+set -Eeuo pipefail
+# Runs pycodestyle insta485
+pycodestyle insta485
+
+# Runs pydocstyle insta485
+pydocstyle  insta485
+
+# Runs pylint --disable=no-value-for-parameter index.py insta485
+pylint --disable=cyclic-import --unsafe-load-any-extension=y --disable=assigning-non-slot insta485
+
+# unit tests
+pytest -v tests/

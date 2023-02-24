@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <title>insta485</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div id=topleft>
+        <a href="/">Insta485</a>
+    </div>
+    <div id=topright>
+        <b> <a href="/explore/">explore</a> | <a href="/users/{{logname}}/">{{ logname }} </a> </b>
+    </div>
+    <br>
+    <hr>
+
+    <form action="/accounts/?target=/accounts/create/" method="post" enctype="multipart/form-data">
+        {{ logname }}
+        <div><input type="submit" name="delete" value="confirm delete account" /></div>
+        <div><input type="hidden" name="operation" value="delete" /></div>
+    </form>
+
+
+
+
+</body>

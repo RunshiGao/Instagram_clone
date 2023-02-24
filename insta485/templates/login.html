@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>insta485</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div id="top">
+    <div id=topleft>
+        <a href="/">Insta485</a>
+    </div>
+    <div id="topright">
+        login
+    </div>
+    <br><br>
+</div>
+
+<form action="/accounts/?target={{url_for("show_index")}}" method="post" enctype="multipart/form-data">
+    <input type="text" name="username" required/>
+    <input type="password" name="password" required/>
+    <input type="submit" value="login"/>
+    <input type="hidden" name="operation" value="login"/>
+</form>
+<b>Don't have an account?<a href="/accounts/create/">Sign up</a></b>
+</body>
+</html>

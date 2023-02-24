@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block body %}
+    <p class="title2">Discover People</p>
+    {% for follow in not_following %}
+        <div class="follow">
+            <img src="/uploads/{{ follow.filename }}" class="avatar" alt="ava1">
+            <a href="/users/{{ follow.username }}/" class="name"><br>{{ follow.username }}</a>
+            <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+            <form action="/following/?target={{ url_for("show_explore") }}" method="post"
+                  enctype="multipart/form-data">
+                <input type="submit" name="follow" value="follow"/>
+                <input type="hidden" name="username" value="{{ follow.username }}"/>
+                <input type="hidden" name="operation" value="follow"/>
+            </form>
+        </div>
+    {% endfor %}
+{% endblock %}

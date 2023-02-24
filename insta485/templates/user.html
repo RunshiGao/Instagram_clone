@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <div class="posts">
+        <p class="title">{{ user.username }}</p>
+        {% if user.username == logname %}
+            <a href="/accounts/edit/">Edit profile</a>
+            <form action="/accounts/logout/" method="post" enctype="multipart/form-data">
+                <input type="submit" name="logout" value="Logout"/>
+            </form>
+        {% else %}
+            {% if logname_follows_username %}
+                <p> following</p>
+                <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+                <form action="/following/?target={{ url_for("show_user", user_url_slug=user.username) }}" method="post"
+                      enctype="multipart/form-data">
+                    <input type="submit" name="unfollow" value="unfollow"/>
+                    <input type="hidden" name="username" value="{{ user.username }}"/>
+                    <input type="hidden" name="operation" value="unfollow"/>
+                </form>
+            {% else %}
+                <p> not following</p>
+                <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+                <form action="/following/?target={{ url_for("show_user", user_url_slug=user.username) }}" method="post"
+                      enctype="multipart/form-data">
+                    <input type="submit" name="follow" value="follow"/>
+                    <input type="hidden" name="username" value="{{ user.username }}"/>
+                    <input type="hidden" name="operation" value="follow"/>
+                </form>
+            {% endif %}
+
+        {% endif %}
+
+        <p>
+            {% if user.total_posts != 1 %}
+                {{ user.total_posts }} posts
+            {% else %}
+                {{ user.total_posts }} post
+            {% endif %}
+            <a href="/users/{{ user.username }}/followers/" class="bold">
+                {% if user.followers != 1 %}
+                    {{ user.followers }} followers
+                {% else %}
+                    {{ user.followers }} follower
+                {% endif %}
+            </a>
+            <a href="/users/{{ user.username }}/following/" class="bold">{{ user.following }} following</a>
+        </p>
+        <p class="bold">{{ user.fullname }}</p>
+        {% if user.username == logname %}
+            <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+            <form action="/posts/?target={{ url_for("show_user", user_url_slug=user.username) }}" method="post"
+                  enctype="multipart/form-data">
+                <input type="file" name="file" accept="image/*" required/>
+                <input type="submit" name="create_post" value="upload new post"/>
+                <input type="hidden" name="operation" value="create"/>
+            </form>
+        {% endif %}
+        {% for post in posts %}
+            <a href="/posts/{{ post.postid }}/"><img class="pic" src="/uploads/{{ post.filename }}" alt="p1"></a>
+        {% endfor %}
+    </div>
+{% endblock %}
